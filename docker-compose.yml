@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backuperr:
+    build: .
+    container_name: backuperr
+    env_file:
+      - .env
+    volumes:
+      - ./config.yaml:/app/config.yaml
+      - /example:/backup/example
+    environment:
+      - TZ=Europe/Zurich
+    restart: unless-stopped
