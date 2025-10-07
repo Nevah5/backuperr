@@ -7,8 +7,9 @@ services:
     env_file:
       - .env
     volumes:
-      - ./config.yaml:/app/config.yaml
+      - ./config.yaml:/app/config.yaml:ro
       - /example:/backup/example
+      - /mnt/example:/backups
     environment:
       - TZ=Europe/Zurich
     restart: unless-stopped
