@@ -1,0 +1,18 @@
+folders:
+  - path: immich/
+    files:
+      - .env
+      - postgres/
+      - model-cache/
+    location: /mnt/example/immich/
+    schedule: "0 2 * * *"
+    retention: 7d
+    compress: false
+  - path: jellyfin/
+    files:
+      - .env
+      - media/
+    location: /mnt/example/jellyfin/
+    schedule: "0 2 * * *"
+    retention: '3'
+    compress: true
