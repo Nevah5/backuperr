@@ -1,5 +1,5 @@
 folders:
-  - path: immich/
+  - path: immich
     files:
       - .env
       - postgres/
@@ -8,7 +8,7 @@ folders:
     schedule: "0 2 * * *"
     retention: 7d
     compress: false
-  - path: jellyfin/
+  - path: jellyfin
     files:
       - .env
       - media/

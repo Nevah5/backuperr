@@ -36,7 +36,7 @@ for folder in config['folders']:
 
     command = f'cd /app && python3 /app/backup.py --path {path}'
 
-    log_file = f'/var/log/backup/backup_{path.replace(\"/\", \"_\")}.log'
+    log_file = f'/var/log/backuperr/backup_{path.replace(\"/\", \"_\")}.log'
     cron_line = f'{schedule} {command} >> {log_file} 2>&1' # Log file to capture script errors that are not handled by the logger
 
     print(f'Adding backup job of {path} with schedule {schedule}')
