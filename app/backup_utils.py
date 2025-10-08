@@ -1,6 +1,10 @@
 import os
 import tarfile
 from datetime import datetime, timedelta
+from logger import get_logger
+
+# Get logger for this module
+logger = get_logger('backup_utils')
 
 def create_backup(source_path, destination_path, compress):
     timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
@@ -13,7 +17,7 @@ def create_backup(source_path, destination_path, compress):
     with tarfile.open(backup_path, 'w:gz' if compress else 'w') as tar:
         tar.add(source_path, arcname=os.path.basename(source_path))
 
-    print(f"Backup created: {backup_path}")
+    logger.info(f"Backup created: {backup_path}")
     return backup_path
 
 def clean_old_backups(destination_path, retention):
@@ -43,4 +47,9 @@ def clean_old_backups(destination_path, retention):
 
     for backup in to_delete:
         os.remove(os.path.join(destination_path, backup))
-        print(f"Deleted old backup: {backup}")
+        logger.info(f"Deleted old backup: {backup}")
+    
+    if to_delete:
+        logger.info(f"Cleaned up {len(to_delete)} old backup(s)")
+    else:
+        logger.info("No old backups to clean up")
