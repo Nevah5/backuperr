@@ -38,7 +38,7 @@ with open(CRON_FILE, 'a') as cron:
         schedule = folder['schedule']
         path = folder['path']
 
-        command = f'cd /app && python3 /app/backup.py --path {path}'
+        command = f'cd /app && /usr/local/bin/python3 /app/backup.py --path {path}'
         log_file = f'/var/log/backuperr/backup_{path.replace(\"/\", \"_\")}.log'
 
         # Proper cron format with user specification for /etc/cron.d/
