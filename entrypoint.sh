@@ -25,9 +25,15 @@ for folder in config['folders']:
     path = folder['path']
 
     command = f'python3 /app/backup.py --path {path}'
-    print(f'{schedule} {command}')
-" >> $CRON_FILE
+    cron_line = f'{schedule} {command}'
+    print(f'Adding backup job of {path} with schedule {schedule}')
+
+    # Write to cron file
+    with open('$CRON_FILE', 'a') as cron:
+        cron.write(cron_line + '\\n')
+"
 
 chmod 0644 $CRON_FILE
 
+echo "Starting cron..."
 cron -f
