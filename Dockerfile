@@ -4,10 +4,8 @@ WORKDIR /app
 
 COPY ./app /app
 COPY requirements.txt /app/
-COPY setup.sh /app/
 
-RUN chmod +x /app/setup.sh
-RUN /app/setup.sh
+RUN pip install --no-cache-dir -r requirements.txt
 
 RUN apt-get update && apt-get install -y cron && rm -rf /var/lib/apt/lists/*
 
