@@ -19,6 +19,8 @@ fi
 
 > $CRON_FILE
 
+mkdir -p /var/log/backuperr
+
 python3 -c "
 import yaml
 import os
@@ -32,11 +34,14 @@ for folder in config['folders']:
     schedule = folder['schedule']
     path = folder['path']
 
-    command = f'python3 /app/backup.py --path {path}'
-    cron_line = f'{schedule} {command}'
-    print(f'Adding backup job of {path} with schedule {schedule}')
+    command = f'cd /app && python3 /app/backup.py --path {path}'
 
-    # Write to cron file
+    log_file = f'/var/log/backup/backup_{path.replace(\"/\", \"_\")}.log'
+    cron_line = f'{schedule} {command} >> {log_file} 2>&1' # Log file to capture script errors that are not handled by the logger
+
+    print(f'Adding backup job of {path} with schedule {schedule}')
+    print(f'  Logs will be written to {log_file}')
+
     with open('$CRON_FILE', 'a') as cron:
         cron.write(cron_line + '\\n')
 "
